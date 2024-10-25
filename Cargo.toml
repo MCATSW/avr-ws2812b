@@ -1,9 +1,10 @@
 [package]
-name = "avr-project"
+name = "avr-ws2812b"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+avr-pin = { git = "https://github.com/MCATSW/avr-pin.git" }
 
 [profile.release]
 lto = true
