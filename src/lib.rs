@@ -8,7 +8,7 @@
 use core::arch::asm;
 
 use avr_delay::delay_us;
-use avr_pin::Pin;
+use avr_pin::{Pin, DD};
 
 /// Represents a WS2812B data line.
 #[repr(packed)]
@@ -96,6 +96,21 @@ impl WS2812B {
         Self {
             data_line_pid,
         }
+    }
+    /// Initializes the WS2812B.
+    ///
+    /// Returns false if the pid in `Self` is invalid.
+    /// Otherwise, returns true.
+    pub fn init(&self) -> bool {
+        let pin: Pin = match Pin::from_pid(self.data_line_pid) {
+            Some(pin) => pin,
+            None => return false,
+        };
+        unsafe {
+            pin.set_ddr(DD::Output);
+            pin.write(false);
+        }
+        true
     }
     /// Sends a pixel array to the WS2812B.
     ///
