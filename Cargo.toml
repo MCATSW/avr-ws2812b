@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 avr-pin = { git = "https://github.com/MCATSW/avr-pin.git" }
+avr-delay = { git = "https://github.com/MCATSW/avr-delay.git" }
 
 [profile.release]
 lto = true
