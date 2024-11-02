@@ -46,13 +46,13 @@ pub unsafe fn send_0(pin: &Pin) {
     let low: u8 = *pin.port & !pin.mask;
     asm!(
         // 6 TICKS TOTAL
-        "st {port}, {high}", // 2 TICKS
+        "st X, {high}", // 2 TICKS
         "nop", // 1 TICK
         "nop", // 1 TICK
         "nop", // 1 TICK
         "nop", // 1 TICK
-        "st {port}, {low}", // 2 TICKS
-        port = in(reg_ptr) pin.port,
+        "st X, {low}", // 2 TICKS
+        in("X") pin.port,
         high = in(reg) high,
         low = in(reg) low,
     );
@@ -71,7 +71,7 @@ pub unsafe fn send_1(pin: &Pin) {
     let low: u8 = *pin.port & !pin.mask;
     asm!(
         // 13 TICKS TOTAL
-        "st {port}, {high}", // 2 TICKS
+        "st X, {high}", // 2 TICKS
         "nop", // 1 TICK
         "nop", // 1 TICK
         "nop", // 1 TICK
@@ -83,8 +83,8 @@ pub unsafe fn send_1(pin: &Pin) {
         "nop", // 1 TICK
         "nop", // 1 TICK
         "nop", // 1 TICK
-        "st {port}, {low}", // 2 TICKS
-        port = in(reg_ptr) pin.port,
+        "st X, {low}", // 2 TICKS
+        in("X") pin.port,
         high = in(reg) high,
         low = in(reg) low,
     );
